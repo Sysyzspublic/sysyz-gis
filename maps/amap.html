@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+	<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+	<title>邵阳市一中校园地理导航系统 - AlphaTest</title>
+	<style>
+		html,
+		body,
+		#container {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<!-- 加载地图JSAPI脚本 -->
+	<script src="https://webapi.amap.com/maps?v=2.0&key=2898cd671463064afdcab2d717af9d18"></script>
+	<script>
+		var map = new AMap.Map('container', {
+			pitch: 60, //地图俯仰角度，有效范围 0 度- 83 度
+			viewMode: '3D', //地图模式
+			rotateEnable: true, //是否开启地图旋转交互 鼠标右键 + 鼠标画圈移动 或 键盘Ctrl + 鼠标左键画圈移动
+			pitchEnable: true, //是否开启地图倾斜交互 鼠标右键 + 鼠标上下移动或键盘Ctrl + 鼠标左键上下移动
+			zoom: 17, //初始化地图层级
+			rotation: -250, //初始地图顺时针旋转的角度
+			zooms: [2, 20], //地图显示的缩放级别范围
+			center: [111.527591, 27.241698] // 初始化地图中心点
+		});
+
+		AMap.plugin(['AMap.ControlBar', 'AMap.ToolBar'], function () { //异步加载插件
+			var controlBar = new AMap.ControlBar({ //控制地图旋转插件
+				position: {
+					right: '10px',
+					top: '10px'
+				}
+			});
+			map.addControl(controlBar);
+			var toolBar = new AMap.ToolBar({ //地图缩放插件
+				position: {
+					right: '40px',
+					top: '110px'
+				}
+			});
+			map.addControl(toolBar)
+		});
+
+		AMap.plugin(
+			[
+				"AMap.ToolBar",
+				"AMap.Scale",
+				"AMap.HawkEye",
+				"AMap.MapType",
+				"AMap.Geolocation",
+				"AMap.ControlBar",
+			],
+			function () {
+				//添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+				//map.addControl(new AMap.ToolBar());
+
+				//添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+				map.addControl(new AMap.Scale());
+
+				//添加鹰眼控件，在地图右下角显示地图的缩略图
+				//map.addControl(new AMap.HawkEye({ isOpen: true }));
+
+				//添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+				//map.addControl(new AMap.MapType());
+
+				//添加定位控件，用来获取和展示用户主机所在的经纬度位置
+				map.addControl(new AMap.Geolocation());
+
+				//添加控制罗盘控件，用来控制地图的旋转和倾斜
+				//map.addControl(new AMap.ControlBar());
+			}
+		);
+	</script>
+</body>
+
+</html>
