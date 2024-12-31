@@ -12,7 +12,6 @@
     MOBILE: 'mobile',
     HOME: 'home',
     ANDROID: 'android',
-    IOS: 'ios',
     APP_STORE: 'app'
   }
 
@@ -46,7 +45,7 @@
   })
 
   btnWeb.addEventListener('click', () => {
-    window.open("https://chat.furrybar.com")
+    window.open("https://sysyz-itcom.github.io/sysyz-gis/maps/amap.html")
   })
 
   btnAndroid.addEventListener('click', () => {
@@ -57,7 +56,4 @@
     updateMode(MODE.DEFAULT, MODE.MOBILE, MODE.IOS)
   })
 
-  btnApp.addEventListener('click', () => {
-    updateMode(MODE.DEFAULT, MODE.MOBILE, MODE.APP_STORE)
-  })
 })()
