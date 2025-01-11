@@ -23,7 +23,7 @@
 
 ## 第三方服务列表
 |平台|服务内容|
-|:---:|:---:|:---:|
+|:---:|:---:|
 |高德地图|实时地图 API|
 |Cloudflare|Cloudflare Page|
 |Github|Github Page|
