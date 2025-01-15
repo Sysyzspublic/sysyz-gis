@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>社团统一验证服务</title>
+  <title>社团统一验证服务 - SYSYZMAPS</title>
   <style>
-    /* 页面布局 */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -37,6 +36,19 @@
     .cf-turnstile {
       margin-top: 20px;
     }
+
+	/* 链接文本 */
+    .link-text {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #007bff;  /* 初始文本颜色 */
+      text-decoration: none;
+    }
+
+    .link-text:active, .link-text:visited {
+      color: #007bff;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -48,6 +60,8 @@
       data-sitekey="yourSitekey"
       data-callback="javascriptCallback"
     ></div>
+
+	<a href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html" class="link-text" target="_blank">无法通过验证</a>
   </div>
 
   <script
@@ -58,11 +72,10 @@
   <script>
     window.onloadTurnstileCallback = function () {
       turnstile.render(".cf-turnstile", {
-        sitekey: "0x4AAAAAAA5ZS53ZizU9CGp3",  // 请替换为您的实际Sitekey
+        sitekey: "0x4AAAAAAA5ZS53ZizU9CGp3",
         callback: function (token) {
           console.log(`Challenge Success ${token}`);
-          // 验证通过后跳转到指定页面
-          window.location.href = "https://sysyz-itcom.github.io/sysyz-gis/service/"; // 请替换为您想跳转的URL
+          window.location.href = "https://sysyz-itcom.github.io/sysyz-gis/service/";
         },
       });
     };
