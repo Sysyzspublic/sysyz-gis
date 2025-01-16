@@ -28,7 +28,7 @@
 
 <body>
 	<div id="turnstile-container">
-		<div class="cf-turnstile" data-sitekey="0x4AAAAAAA5ZS53ZizU9CGp3"></div>
+		<div class="cf-turnstile" data-sitekey="0x4AAAAAAA5ZS53ZizU9CGp3" data-callback="onTurnstileSuccess"></div>
 	</div>
 	<div id="container" style="display:none;"></div>
 	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -37,7 +37,9 @@
 	<script>
 		// Turnstile验证成功后的回调函数
 		function onTurnstileSuccess(token) {
+			// 隐藏Turnstile验证模块
 			document.getElementById('turnstile-container').style.display = 'none';
+			// 显示地图容器
 			document.getElementById('container').style.display = 'block';
 			
 			var map = new AMap.Map('container', {
