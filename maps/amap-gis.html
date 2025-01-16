@@ -2,90 +2,128 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-	<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
-	<title>邵阳市一中校园地理导航系统 - AlphaTest</title>
-	<style>
-		html,
-		body,
-		#container {
-			width: 100%;
-			height: 100%;
-		}
-		#turnstile-container {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-	</style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+  <title>邵阳市一中校园地理导航系统 - BetaTest</title>
+  <style>
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+
+    #turnstile-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 标题 */
+    #turnstile-title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* 正文文本 */
+    #turnstile-text {
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    /* 支持按钮 */
+    a#turnstile-text {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a#turnstile-text:visited {
+      color: #007bff;
+    }
+
+    a#turnstile-text:hover {
+      color: #007bff;
+    }
+
+    a#turnstile-text:active {
+      color: #007bff;
+    }
+  </style>
 </head>
 
 <body>
-	<div id="turnstile-container">
-		<div class="cf-turnstile" data-sitekey="0x4AAAAAAA5ZS53ZizU9CGp3" data-callback="onTurnstileSuccess"></div>
-	</div>
-	<div id="container" style="display:none;"></div>
-	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-	<script src="https://webapi.amap.com/maps?v=2.0&key=2898cd671463064afdcab2d717af9d18"></script>
+  <div id="turnstile-container">
+    <div id="turnstile-title">社团统一验证服务</div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5ZS53ZizU9CGp3" data-callback="onTurnstileSuccess"></div>
+    <a id="turnstile-text" href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html">验证出现问题</a> <!-- 社团文档 -->
+  </div>
+  <div id="container" style="display:none;"></div>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://webapi.amap.com/maps?v=2.0&key=2898cd671463064afdcab2d717af9d18"></script>
 
-	<script>
-		// Turnstile验证成功后的回调函数
-		function onTurnstileSuccess(token) {
-			// 隐藏Turnstile验证模块
-			document.getElementById('turnstile-container').style.display = 'none';
-			// 显示地图容器
-			document.getElementById('container').style.display = 'block';
-			
-			var map = new AMap.Map('container', {
-				pitch: 60, //地图俯仰角度
-				viewMode: '3D', //地图模式
-				rotateEnable: true, //地图旋转交互
-				pitchEnable: true, //地图倾斜交互
-				zoom: 17, //初始化地图层级
-				rotation: -250, //初始地图顺时针旋转的角度
-				zooms: [2, 20], //地图显示的缩放级别范围
-				center: [111.527591, 27.241698] // 初始化地图中心点
-			});
+  <script>
+    // 验证回调
+    function onTurnstileSuccess(token) {
+      document.getElementById('turnstile-container').style.display = 'none';
+      document.getElementById('turnstile-text').style.display = 'none';
+      document.getElementById('container').style.display = 'block';
 
-			AMap.plugin(['AMap.ControlBar', 'AMap.ToolBar'], function () { //异步加载
-				var controlBar = new AMap.ControlBar({
-					position: {
-						right: '10px',
-						top: '10px'
-					}
-				});
-				map.addControl(controlBar);
-				var toolBar = new AMap.ToolBar({
-					position: {
-						right: '40px',
-						top: '110px'
-					}
-				});
-				map.addControl(toolBar);
-			});
+      var map = new AMap.Map('container', {
+        pitch: 60, //地图俯仰角度
+        viewMode: '3D', //地图模式
+        rotateEnable: true, //地图旋转交互
+        pitchEnable: true, //地图倾斜交互
+        zoom: 17, //初始化地图层级
+        rotation: -250, //初始地图顺时针旋转的角度
+        zooms: [2, 20], //地图显示的缩放级别范围
+        center: [111.527591, 27.241698] // 初始化地图中心点
+      });
 
-			AMap.plugin(
-				[
-					"AMap.ToolBar",
-					"AMap.Scale",
-					"AMap.HawkEye",
-					"AMap.MapType",
-					"AMap.Geolocation",
-					"AMap.ControlBar",
-				],
-				function () {
-					map.addControl(new AMap.Scale());
-					map.addControl(new AMap.Geolocation());
-				}
-			);
-		}
-	</script>
+      AMap.plugin(['AMap.ControlBar', 'AMap.ToolBar'], function () { //异步加载
+        var controlBar = new AMap.ControlBar({
+          position: {
+            right: '10px',
+            top: '10px'
+          }
+        });
+        map.addControl(controlBar);
+        var toolBar = new AMap.ToolBar({
+          position: {
+            right: '40px',
+            top: '110px'
+          }
+        });
+        map.addControl(toolBar);
+      });
+
+      AMap.plugin(
+        [
+          "AMap.ToolBar",
+          "AMap.Scale",
+          "AMap.HawkEye",
+          "AMap.MapType",
+          "AMap.Geolocation",
+          "AMap.ControlBar",
+        ],
+        function () { // 地图控件加载
+          map.addControl(new AMap.Scale());
+          map.addControl(new AMap.Geolocation());
+        }
+      );
+    }
+  </script>
 </body>
 
 </html>
