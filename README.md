@@ -15,6 +15,27 @@
 >
 > **本项目仍在开发中，部分功能还未完善！**
 
+## 页面速览
+
+> [!NOTE]
+> 仅提供页面描述说明，当前截图内容在 2025.01.26 被保存，后续内容可能有所更改。
+
+### 首页
+![首页](./res/introd/index.jpeg)
+
+### 静态地图
+![静态地图](./res/img/b85596cb5e4064a09c93a9a6b55bcc9e.jpg)
+
+### 机器人验证
+![cft](./res/introd/cft.jpeg)
+
+### 动态地图【BETA】
+> [!WARNING]
+> 动态地图仍在测试中，您看到的页面不代表最终效果。
+
+![amap](./res/introd/amap.jpeg)
+
+
 ## 贡献人员列表
 ### 项目创建
 - yizhixianyuuuu（NiePeiyu）
