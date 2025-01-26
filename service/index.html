@@ -152,14 +152,15 @@
 
 <body>
     <!-- 模态框显示验证码 -->
-  <div id="modal">
-    <div class="modal-content">
-      <h2>社团统一验证服务</h2>
-      <div class="cf-turnstile" data-sitekey="yourSiteKey" data-callback="loadContent">
-      </div>
-      <a href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html" class="link-text" target="_blank">验证出现问题</a>
+    <div id="modal">
+        <div class="modal-content">
+            <h2>社团统一验证服务</h2>
+            <div class="cf-turnstile" data-sitekey="yourSiteKey" data-callback="loadContent">
+            </div>
+            <a href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html" class="link-text"
+                target="_blank">验证出现问题</a>
+        </div>
     </div>
-  </div>
 
     <!-- 内容区域 (隐藏)  -->
     <div id="content">
@@ -192,8 +193,15 @@
             const content = document.getElementById("content");
             content.style.display = "block";
             content.style.opacity = "1";
+
+            // 在验证成功后重新设置背景图片
+            const bgImage = getBackgroundImageFromCookie();
+            if (!bgImage) {
+                setBackgroundImage('https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg');
+            }
         }
 
+        // 初始化背景图片
         function setBackgroundImage(imageUrl) {
             document.body.style.backgroundImage = `url(${imageUrl})`;
             document.cookie = `bgImage=${imageUrl}; path=/; max-age=31536000`;  // 设置 cookie
@@ -209,7 +217,7 @@
             }
             return null;
         }
-        
+
         // cookie 缓存
         window.onload = function () {
             const bgImage = getBackgroundImageFromCookie();
