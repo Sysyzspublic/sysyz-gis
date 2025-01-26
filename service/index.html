@@ -187,8 +187,10 @@
         // 验证成功后加载页面内容并隐藏验证框
         function loadContent(token) {
             console.log("验证成功，请稍等");
+
             // 隐藏验证框
             document.getElementById("modal").style.display = "none";
+
             // 显示内容
             const content = document.getElementById("content");
             content.style.display = "block";
@@ -197,16 +199,26 @@
             // 在验证成功后重新设置背景图片
             const bgImage = getBackgroundImageFromCookie();
             if (!bgImage) {
+                // 默认背景图片
                 setBackgroundImage('https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg');
+            } else {
+                // 使用cookie中的背景图片
+                setBackgroundImage(bgImage);
             }
+
+            // 更新内容区域的背景
+            updateContentBackground();
         }
 
         // 初始化背景图片
         function setBackgroundImage(imageUrl) {
+            // 设置body背景
             document.body.style.backgroundImage = `url(${imageUrl})`;
-            document.cookie = `bgImage=${imageUrl}; path=/; max-age=31536000`;  // 设置 cookie
+            // 将背景图片存储到cookie
+            document.cookie = `bgImage=${imageUrl}; path=/; max-age=31536000`; // 设置cookie保存1年
         }
 
+        // 获取cookie中保存的背景图片路径
         function getBackgroundImageFromCookie() {
             const cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
@@ -218,17 +230,16 @@
             return null;
         }
 
-        // cookie 缓存
-        window.onload = function () {
+        // 更新内容区域的背景
+        function updateContentBackground() {
+            const content = document.getElementById("content");
             const bgImage = getBackgroundImageFromCookie();
             if (bgImage) {
-                // 如果 cookie 中有背景图路径
-                document.body.style.backgroundImage = `url(${bgImage})`;
+                content.style.backgroundImage = `url(${bgImage})`;
             } else {
-                // 如果没有
-                setBackgroundImage('https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg');
+                content.style.backgroundImage = 'url(https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg)';
             }
-        };
+        }
 
         // 初始化 Turnstile 验证框
         window.onloadTurnstileCallback = function () {
@@ -236,6 +247,18 @@
                 sitekey: "0x4AAAAAAA5ZS53ZizU9CGp3",
                 callback: loadContent,
             });
+        };
+
+        // 页面加载时设置背景图片
+        window.onload = function () {
+            const bgImage = getBackgroundImageFromCookie();
+            if (bgImage) {
+                // 如果cookie中有背景图路径
+                document.body.style.backgroundImage = `url(${bgImage})`;
+            } else {
+                // 如果没有
+                setBackgroundImage('https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg');
+            }
         };
     </script>
 </body>
