@@ -28,10 +28,6 @@
         .container {
             text-align: center;
             margin-top: 20%;
-            background-image: url('https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
         }
 
         /* 圆形图片容器 */
@@ -198,13 +194,6 @@
             content.style.opacity = "1";
         }
 
-        // 初始化 Turnstile 验证框
-        window.onloadTurnstileCallback = function () {
-            turnstile.render(".cf-turnstile", {
-                sitekey: "0x4AAAAAAA5ZS53ZizU9CGp3",
-                callback: loadContent,
-            });
-        };
         function setBackgroundImage(imageUrl) {
             document.body.style.backgroundImage = `url(${imageUrl})`;
             document.cookie = `bgImage=${imageUrl}; path=/; max-age=31536000`;  // 设置 cookie
@@ -231,6 +220,14 @@
                 // 如果没有
                 setBackgroundImage('https://sysyz-itcom.github.io/sysyz-gis/res/img/l3zmwy.jpeg');
             }
+        };
+
+        // 初始化 Turnstile 验证框
+        window.onloadTurnstileCallback = function () {
+            turnstile.render(".cf-turnstile", {
+                sitekey: "0x4AAAAAAA5ZS53ZizU9CGp3",
+                callback: loadContent,
+            });
         };
     </script>
 </body>
