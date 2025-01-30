@@ -15,6 +15,27 @@
       height: 100%;
     }
 
+    .custom-input-card {
+			width: 18rem;
+		}
+
+		.custom-input-card .btn:last-child {
+			margin-left: 1rem;
+		}
+
+		.content-window-card {
+			position: relative;
+			width: 23rem;
+			padding: 0.75rem 0 0 1.25rem;
+			box-shadow: none;
+			bottom: 0;
+			left: 0;
+		}
+
+		.content-window-card p {
+			height: 2rem;
+		}
+
     #turnstile-container {
       position: absolute;
       top: 50%;
@@ -70,8 +91,15 @@
     <a id="turnstile-text" href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html">验证出现问题</a> <!-- 社团文档 -->
   </div>
   <div id="container" style="display:none;"></div>
+  <div class="info" style="display:none;">
+		<h4><strong>地图视图限制✔</strong></h4>
+		<p>X：<span>111.527591</span></p>
+		<p>Y：<span>27.241698</span></p>
+	</div>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script src="https://webapi.amap.com/maps?v=2.0&key=2898cd671463064afdcab2d717af9d18"></script>
+  <script src="https://webapi.amap.com/maps?v=2.0&key=2898cd671463064afdcab2d717af9d18&callback=initMap"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+
 
   <script>
     // 验证回调
@@ -122,6 +150,25 @@
           map.addControl(new AMap.Geolocation());
         }
       );
+
+      //限制地图显示范围
+			function lockMapBounds() {
+				var bounds = map.getBounds();
+				map.setLimitBounds(bounds);
+				logMapInfo();
+			}
+			//启用地图范围限定
+			lockMapBounds();
+			logMapInfo();
+			function logMapInfo() {
+				var limitBounds = map.getLimitBounds();
+				if (limitBounds) {
+					document.querySelector("#ne").innerText = limitBounds.northeast.toString();
+					document.querySelector("#sw").innerText = limitBounds.southwest.toString();
+				} else {
+					document.querySelector("#ne").innerText = document.querySelector("#sw").innerText = "未限定";
+				}
+			};
     }
   </script>
 </body>
