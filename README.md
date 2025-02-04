@@ -1,6 +1,9 @@
 # sysyz-gis
 邵阳市第一中学可视化地图导航系统
 
+> [!WARNING]
+> 由于技术原因，项目正在进行维护，我们会尽快重新上线。
+
 项目地址：[邵阳市第一中学校园 GIS 地图系统](https://sysyz-itcom.github.io/WindLin/projects/school/sysyz-gis.html)
 
 在线体验：[WEB](https://sourl.cn/PB3VVL)
