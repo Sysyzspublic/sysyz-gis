@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="1;url=https://sysyz-itcom.github.io/sysyz-gis/service">
   <title>社团统一验证服务 - SYSYZMAPS</title>
   <style>
     body {
@@ -22,63 +23,8 @@
       margin-top: 20px;
       font-size: 2em;
     }
-
-    .content {
-      text-align: center;
-      margin-top: 30px;
-      max-width: 800px;
-      padding: 20px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    .cf-turnstile {
-      margin-top: 20px;
-    }
-
-	/* 链接文本 */
-    .link-text {
-      margin-top: 20px;
-      font-size: 0.8em;
-      color: #007bff;  /* 初始文本颜色 */
-      text-decoration: none;
-    }
-
-    .link-text:active, .link-text:visited {
-      color: #007bff;
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
-  <h1>一中校园导航服务</h1>
-  
-  <div class="content">
-    <p>请稍等片刻</p>
-    <div class="cf-turnstile"
-      data-sitekey="yourSitekey"
-      data-callback="javascriptCallback"
-    ></div>
-
-	<a href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html" class="link-text" target="_blank">无法通过验证</a>
-  </div>
-
-  <script
-    src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
-    defer
-  ></script>
-
-  <script>
-    window.onloadTurnstileCallback = function () {
-      turnstile.render(".cf-turnstile", {
-        sitekey: "0x4AAAAAAA5ZS53ZizU9CGp3",
-        callback: function (token) {
-          console.log(`Challenge Success ${token}`);
-          window.location.href = "https://sysyz-itcom.github.io/sysyz-gis/service/";
-        },
-      });
-    };
-  </script>
+    <h1>此页面不再可用</h1>
 </body>
 </html>
