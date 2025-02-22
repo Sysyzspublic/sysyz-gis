@@ -3,7 +3,8 @@
 > [!WARNING]
 > 服务已恢复，目前接口仍然不稳定。
 
-在线体验：[WEB](https://sourl.cn/PB3VVL)
+- 在线体验：[WEB](https://sourl.cn/PB3VVL)
+- 下载应用：[Releases](https://github.com/Sysyz-itcom/sysyz-gis/releases)
 
 ## 项目介绍
 为邵阳市第一中学构建的校园地图系统，预计提供一个标准地图和一个实时定位导航页面。在学校开放日时，来校参观的家长和学生可以通过此项目提供的页面快速定位，并且了解当前所在楼的介绍信息等。
