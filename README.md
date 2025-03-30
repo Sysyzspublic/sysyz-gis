@@ -45,7 +45,7 @@
 |:---:|:---:|:---:|
 |LiJiajun|G2109（已毕业）|[Fuwaki](https://github.com/Fuwaki)|
 |ZhuYunfeng|G2315|/|
-|NiePeiyu|G2320|[yizhixianyuuuu](https://github.com/yizhixianyuuuu)|
+|NiePeiyu|G2320|yizhixianyuuuu|
 
 ## 第三方服务列表
 |平台|服务内容|
