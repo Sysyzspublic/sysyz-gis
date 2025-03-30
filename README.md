@@ -41,11 +41,11 @@
 ### 贡献列表
 感谢以下同学对本项目的贡献，根据班级排名。
 
-|姓名|班级|GitHub|
-|:---:|:---:|:---:|
-|LiJiajun|G2109（已毕业）|[Fuwaki](https://github.com/Fuwaki)|
-|ZhuYunfeng|G2315|/|
-|NiePeiyu|G2320|yizhixianyuuuu|
+|姓名|班级|
+|:---:|:---:|
+|LiJiajun|G2109（已毕业）|
+|ZhuYunfeng|G2315|
+|NiePeiyu|G2320|
 
 ## 第三方服务列表
 |平台|服务内容|
