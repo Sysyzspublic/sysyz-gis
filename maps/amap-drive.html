@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="邵阳市第一中学新校区路径规划导航页面"></meta>
-    <meta name="keywords" content="高德地图,JavaScript API,位置经纬度,驾车规划路线,邵阳市第一中学,邵阳市一中,邵阳市"></meta>
+    <meta name="description" content="邵阳市第一中学新校区路径规划导航页面">
+    <meta name="keywords" content="高德地图,JavaScript API,位置经纬度,驾车规划路线,邵阳市第一中学,邵阳市一中,邵阳市">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, zh-CN">
-    <script type="text/javascript">window._AMapSecurityConfig = {securityJsCode: "2e40b2b68cf1437a8c379c9d90582777",}</script>
+    <script type="text/javascript">window._AMapSecurityConfig = { securityJsCode: "2e40b2b68cf1437a8c379c9d90582777", }</script>
     <title>路径规划</title>
     <style type="text/css">
         html,
@@ -54,40 +54,72 @@
             gap: 5px;
             padding: 10px;
             background-color: #f0f0f0;
-            /* 添加以下样式 */
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000; /* 确保顶栏显示在地图之上 */
+            /* 初始化显示在顶栏 */
+            z-index: 1000;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: move;
         }
 
-        .input-container input {
-            padding: 8px;
+        .input-container.hidden {
+            width: auto;
+            /* 调整宽度以适应搜索按钮 */
         }
 
-        #searchButton {
+        .input-container.hidden input {
+            display: none;
+            /* 贴边时隐藏输入框 */
+        }
+
+        .input-container.hidden #searchButton {
+            display: block;
+            /* 确保搜索按钮显示 */
+        }
+
+        .input-container.hidden-left {
+            left: -280px;
+            /* 根据搜索栏宽度调整 */
+        }
+
+        .input-container.hidden-right {
+            right: -280px;
+            /* 根据搜索栏宽度调整 */
+        }
+
+        .input-container.collapsed {
+            top: -50px;
+            /* 收缩后隐藏输入框 */
+        }
+
+        #collapseButton {
+            position: absolute;
+            right: 10px;
+            bottom: -25px;
             background-color: #009cf9;
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 5px 10px;
             cursor: pointer;
-            border-radius: 4px;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            display: none;
         }
 
-        #searchButton i {
-            font-size: 16px;
+        .input-container.collapsed #collapseButton {
+            display: block;
         }
     </style>
-    <!-- 引入 Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
     <!-- 修改输入框区域，使用容器并添加按钮 -->
-    <div class="input-container">
-        <input type="text" id="startKeyword" placeholder="输入起始地点全称(如“邵阳市政府“)" />
-        <input type="text" id="startCity" placeholder="输入起始区划(如”双清区”)" />
+    <div class="input-container" id="searchContainer">
+        <input type="text" id="startKeyword" placeholder="起始地点全称(如“邵阳市政府“)" />
+        <input type="text" id="startCity" placeholder="起始区划(如”双清区”)" />
         <button id="searchButton"><i class="fas fa-paper-plane"></i></button>
     </div>
     <div id="container"></div>
@@ -107,9 +139,9 @@
         });
 
         // 添加比例尺控件
-        map.plugin(["AMap.Scale"], function(){ 
-            var scale = new AMap.Scale(); 
-            map.addControl(scale);   
+        map.plugin(["AMap.Scale"], function () {
+            var scale = new AMap.Scale();
+            map.addControl(scale);
         });
 
         // 修复事件监听逻辑
@@ -126,9 +158,11 @@
                 ], function (status, result) {
                     // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
                     if (status === 'complete') {
-                        log.success('绘制驾车路线完成')
+                        // 使用 console.log 替代未定义的 log.success
+                        console.log('绘制成功！');
                     } else {
-                        log.error('获取驾车数据失败：' + result)
+                        // 使用 console.error 替代未定义的 log.error
+                        console.error(result);
                     }
                 });
             }
@@ -146,12 +180,87 @@
             ], function (status, result) {
                 // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
                 if (status === 'complete') {
-                    log.success('绘制驾车路线完成')
+                    // 使用 console.log 替代未定义的 log.success
+                    console.log('绘制驾车路线完成');
                 } else {
-                    log.error('获取驾车数据失败：' + result)
+                    // 使用 console.error 替代未定义的 log.error
+                    console.error(result);
                 }
             });
         });
+
+        const searchContainer = document.getElementById('searchContainer');
+        const searchButton = document.getElementById('searchButton');
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+        let timer;
+
+        searchContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialX = searchContainer.offsetLeft;
+            initialY = searchContainer.offsetTop;
+            // 拖动开始时清除定时器
+            clearTimeout(timer);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                searchContainer.style.left = initialX + dx + 'px';
+                searchContainer.style.top = initialY + dy + 'px';
+                // 拖动过程中清除定时器
+                clearTimeout(timer);
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                const containerWidth = searchContainer.offsetWidth;
+                const containerHeight = searchContainer.offsetHeight;
+                const containerLeft = parseInt(searchContainer.style.left) || 0;
+                const containerTop = parseInt(searchContainer.style.top) || 0;
+
+                // 拖下来自动贴边只显示搜索按钮
+                if (containerTop > 50) {
+                    if (containerLeft < 20) {
+                        searchContainer.style.left = '0px';
+                        searchContainer.classList.add('hidden');
+                    } else if (containerLeft > windowWidth - containerWidth - 20) {
+                        searchContainer.style.left = windowWidth - containerWidth + 'px';
+                        searchContainer.classList.add('hidden');
+                    }
+                } else {
+                    // 拖出来后重新定位到顶栏
+                    searchContainer.style.top = '0px';
+                    searchContainer.classList.remove('hidden');
+                }
+
+                // 启动定时器，3 秒后自动吸顶
+                timer = setTimeout(() => {
+                    searchContainer.style.top = '0px';
+                    searchContainer.classList.remove('hidden');
+                }, 3000);
+            }
+        });
+
+        searchContainer.addEventListener('mouseenter', () => {
+            searchContainer.classList.remove('hidden');
+            // 鼠标进入时清除定时器
+            clearTimeout(timer);
+        });
+
+        // 初始化时启动定时器
+        timer = setTimeout(() => {
+            searchContainer.style.top = '0px';
+            searchContainer.classList.remove('hidden');
+        }, 3000);
     </script>
 </body>
 
