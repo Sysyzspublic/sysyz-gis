@@ -4,14 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="邵阳市第一中学新校区路径规划导航页面">
-    </meta>
-    <meta name="keywords" content="高德地图,JavaScript API,位置经纬度,驾车规划路线,邵阳市第一中学,邵阳市一中,邵阳市">
-    </meta>
+    <meta name="description" content="邵阳市第一中学新校区路径规划导航页面"></meta>
+    <meta name="keywords" content="高德地图,JavaScript API,位置经纬度,驾车规划路线,邵阳市第一中学,邵阳市一中,邵阳市"></meta>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, zh-CN">
-    <script
-        type="text/javascript">window._AMapSecurityConfig = { securityJsCode: "2e40b2b68cf1437a8c379c9d90582777", }</script>
-    <title>位置经纬度 + 驾车规划路线</title>
+    <script type="text/javascript">window._AMapSecurityConfig = {securityJsCode: "2e40b2b68cf1437a8c379c9d90582777",}</script>
+    <title>路径规划</title>
     <style type="text/css">
         html,
         body,
@@ -62,8 +59,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
-            /* 确保顶栏显示在地图之上 */
+            z-index: 1000; /* 确保顶栏显示在地图之上 */
         }
 
         .input-container input {
@@ -85,99 +81,18 @@
     </style>
     <!-- 引入 Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- 引入 Turnstile 脚本 -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <style type="text/css">
-        /* 添加验证容器样式 */
-        #turnstile-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            /* 使容器高度占满视口 */
-            text-align: center;
-        }
-
-        #turnstile-text {
-            color: #009cf9;
-            /* 链接默认颜色为蓝色 */
-            text-decoration: none;
-            /* 去除下划线 */
-        }
-
-        #turnstile-text:visited,
-        #turnstile-text:hover,
-        #turnstile-text:active {
-            color: #009cf9;
-            /* 链接点击、悬停、访问后颜色保持蓝色 */
-        }
-
-        body {
-            background-color: white;
-            /* 默认背景色为白色 */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        #turnstile-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* 标题 */
-        #turnstile-title {
-            font-size: 25px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        /* 正文文本 */
-        #turnstile-text {
-            text-align: center;
-            font-size: 14px;
-            color: #333;
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- 添加验证控件 -->
-    <div id="turnstile-container">
-        <div id="turnstile-title">社团统一验证服务</div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5ZS53ZizU9CGp3" data-callback="onTurnstileSuccess"></div>
-        <a id="turnstile-text" href="https://sysyz-itcom.github.io/docs/docs/club/trunstile.html">验证出现问题</a>
-        <!-- 社团文档 -->
+    <!-- 修改输入框区域，使用容器并添加按钮 -->
+    <div class="input-container">
+        <input type="text" id="startKeyword" placeholder="输入起始地点全称(如“邵阳市政府“)" />
+        <input type="text" id="startCity" placeholder="输入起始区划(如”双清区”)" />
+        <button id="searchButton"><i class="fas fa-paper-plane"></i></button>
     </div>
-    <!-- 隐藏页面主要内容 -->
-    <div id="main-content" style="display: none;">
-        <!-- 修改输入框区域，使用容器并添加按钮 -->
-        <div class="input-container">
-            <input type="text" id="startKeyword" placeholder="输入起始地点全称(如“邵阳市政府“)" />
-            <input type="text" id="startCity" placeholder="输入起始区划(如”双清区”)" />
-            <button id="searchButton"><i class="fas fa-paper-plane"></i></button>
-        </div>
-        <div id="container"></div>
-        <div id="panel"></div>
-    </div>
+    <div id="container"></div>
+    <div id="panel"></div>
     <script type="text/javascript">
-        // 验证成功的回调函数
-        function onTurnstileSuccess() {
-            document.getElementById('turnstile-container').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
         //基本地图加载
         var map = new AMap.Map("container", {
             resizeEnable: true,
@@ -192,9 +107,9 @@
         });
 
         // 添加比例尺控件
-        map.plugin(["AMap.Scale"], function () {
-            var scale = new AMap.Scale();
-            map.addControl(scale);
+        map.plugin(["AMap.Scale"], function(){ 
+            var scale = new AMap.Scale(); 
+            map.addControl(scale);   
         });
 
         // 修复事件监听逻辑
